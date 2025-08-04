@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal da Cooperativa - Gerar Prova de Crédito</title>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 2em auto; padding: 1em; border: 1px solid #ccc; border-radius: 8px; }
+        button { font-size: 1em; padding: 0.5em 1em; cursor: pointer; border-radius: 4px; border: 1px solid #28a745; background-color: #28a745; color: white; margin-top: 10px; }
+        input, textarea { font-size: 1em; padding: 0.5em; width: 95%; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        #outputSection { margin-top: 1.5em; padding: 1em; border: 1px solid #28a745; border-radius: 8px; background-color: #f8f9fa; }
+        #hashOutput { font-family: monospace; background-color: #e9ecef; padding: 0.5em; word-break: break-all; border-radius: 4px; }
+        .section { margin-top: 1.5em; padding-top: 1em; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+    <h1>Portal da Cooperativa / Originador</h1>
+    <p>Use esta ferramenta para gerar os dados e o hash da prova de reciclagem para enviar ao seu certificador (ex: E-co.lab).</p>
+    
+    <div class="section">
+        <h2>Registrar Lote de Reciclagem</h2>
+        <form id="proofForm">
+            <div>
+                <label for="materialType">Tipo de Material:</label>
+                <input type="text" id="materialType" required placeholder="Ex: Plástico PET Fardo">
+            </div>
+            <div>
+                <label for="weightKg">Peso (em Kg):</label>
+                <input type="number" id="weightKg" required placeholder="Ex: 1500">
+            </div>
+            <div>
+                <label for="location">Sua Localização (Cooperativa/Cidade):</label>
+                <input type="text" id="location" required placeholder="Ex: Cooperativa Recicla-SP">
+            </div>
+            <div>
+                <label for="proofDocument">Dados da Prova (Cole aqui o N° da Nota Fiscal ou dados relevantes):</label>
+                <textarea id="proofDocument" rows="4" required placeholder="Ex: Nota Fiscal N° 987654, emitida em 01/08/2024 para Recicladora XYZ..."></textarea>
+            </div>
+            <button type="submit" id="generateButton">Gerar Hash e Dados para Certificação</button>
+        </form>
+    </div>
+
+    <div id="outputSection" style="display:none;">
+        <h2>Dados Prontos para Envio</h2>
+        <p><strong>Copie os dados abaixo e envie para o seu certificador.</strong> Com estas informações, ele poderá mintar seu crédito de reciclagem na blockchain.</p>
+        <ul>
+            <li><strong>Beneficiário (seu endereço de carteira):</strong> <span id="beneficiaryOutput"></span></li>
+            <li><strong>Tipo de Material:</strong> <span id="materialOutput"></span></li>
+            <li><strong>Peso (Kg):</strong> <span id="weightOutput"></span></li>
+            <li><strong>Localização:</strong> <span id="locationOutput"></span></li>
+        </ul>
+        <p><strong>Hash da Prova de Crédito (Proof Hash):</strong></p>
+        <p id="hashOutput"></p>
+    </div>
+
+    <script>
+        const proofForm = document.getElementById('proofForm');
+        const generateButton = document.getElementById('generateButton');
+        const outputSection = document.getElementById('outputSection');
+
+        // Inputs
+        const materialTypeInput = document.getElementById('materialType');
+        const weightKgInput = document.getElementById('weightKg');
+        const locationInput = document.getElementById('location');
+        const proofDocumentInput = document.getElementById('proofDocument');
+
+        // Outputs
+        const beneficiaryOutput = document.getElementById('beneficiaryOutput');
+        const materialOutput = document.getElementById('materialOutput');
+        const weightOutput = document.getElementById('weightOutput');
+        const locationOutput = document.getElementById('locationOutput');
+        const hashOutput = document.getElementById('hashOutput');
+
+        proofForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Impede o recarregamento da página
+
+            // A cooperativa precisa conectar a carteira para definir o beneficiário
+            if (typeof window.ethereum === 'undefined') {
+                alert("Por favor, instale a MetaMask para usar esta ferramenta.");
+                return;
+            }
+
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const beneficiaryAddress = accounts[0];
+
+                const material = materialTypeInput.value;
+                const weight = weightKgInput.value;
+                const location = locationInput.value;
+                const proofText = proofDocumentInput.value;
+
+                // Para garantir um hash único, concatenamos os dados mais importantes + um timestamp
+                const dataToHash = `${beneficiaryAddress}-${material}-${weight}-${location}-${proofText}-${Date.now()}`;
+                
+                // Converte a string para bytes e calcula o hash Keccak256
+                const proofHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(dataToHash));
+
+                // Exibe os resultados
+                beneficiaryOutput.textContent = beneficiaryAddress;
+                materialOutput.textContent = material;
+                weightOutput.textContent = weight;
+                locationOutput.textContent = location;
+                hashOutput.textContent = proofHash;
+
+                outputSection.style.display = 'block';
+
+            } catch (error) {
+                console.error("Erro:", error);
+                alert(`Ocorreu um erro: ${error.message}`);
+            }
+        });
+    </script>
+</body>
+</html>
