@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cooperative Portal - Generate Credit Proof</title>
+    <title>Recyclers Portal - Generate Credit Proof</title>
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
     <style>
         body { font-family: sans-serif; max-width: 800px; margin: 2em auto; padding: 1em; border: 1px solid #ccc; border-radius: 8px; }
@@ -16,7 +16,7 @@
     </style>
 </head>
 <body>
-    <h1>Cooperative / Originator Portal</h1>
+    <h1>Recyclers / Originator Portal</h1>
     <p>Use this tool to generate the data and proof hash to send to your certifier (e.g., E-co.lab).</p>
     
     <div class="section">
@@ -31,7 +31,7 @@
                 <input type="number" id="weightKg" required placeholder="E.g., 1500">
             </div>
             <div>
-                <label for="location">Your Location (Cooperative/City):</label>
+                <label for="location">Your Location (Recycler/City):</label>
                 <input type="text" id="location" required placeholder="E.g., Recycle-All Coop, SP">
             </div>
             <div>
@@ -77,7 +77,7 @@
             // Prevents the default page reload
             event.preventDefault(); 
 
-            // The cooperative needs to connect a wallet to set the beneficiary
+            // The recyclers needs to connect a wallet to set the beneficiary
             if (typeof window.ethereum === 'undefined') {
                 alert("Please install MetaMask to use this tool.");
                 return;
