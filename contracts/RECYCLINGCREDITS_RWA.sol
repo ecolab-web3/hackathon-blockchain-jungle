@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-// Import standard OpenZeppelin contracts.
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.0.1/contracts/token/ERC721/ERC721.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.0.1/contracts/access/AccessControl.sol";
 
@@ -84,7 +83,7 @@ contract RecyclingCredit is ERC721, AccessControl {
      */
     function retire(uint256 tokenId) external {
         // Only the token owner can retire it.
-        require(_isApprovedOrOwner(msg.sender, tokenId), "Caller is not the owner or approved");
+        require(_ownerOf(tokenId) == msg.sender, "Caller is not the token owner");
         require(!creditDetails[tokenId].isRetired, "Credit is already retired");
 
         creditDetails[tokenId].isRetired = true;
