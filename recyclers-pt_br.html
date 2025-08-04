@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal da Cooperativa - Gerar Prova de Crédito</title>
+    <title>Portal dos Recicladores - Gerar Prova de Crédito</title>
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
     <style>
         body { font-family: sans-serif; max-width: 800px; margin: 2em auto; padding: 1em; border: 1px solid #ccc; border-radius: 8px; }
@@ -16,7 +16,7 @@
     </style>
 </head>
 <body>
-    <h1>Portal da Cooperativa / Originador</h1>
+    <h1>Portal dos Recicladores / Originador</h1>
     <p>Use esta ferramenta para gerar os dados e o hash da prova de reciclagem para enviar ao seu certificador (ex: E-co.lab).</p>
     
     <div class="section">
@@ -31,7 +31,7 @@
                 <input type="number" id="weightKg" required placeholder="Ex: 1500">
             </div>
             <div>
-                <label for="location">Sua Localização (Cooperativa/Cidade):</label>
+                <label for="location">Sua Localização (Reciclador/Cidade):</label>
                 <input type="text" id="location" required placeholder="Ex: Cooperativa Recicla-SP">
             </div>
             <div>
@@ -76,7 +76,7 @@
         proofForm.addEventListener('submit', async (event) => {
             event.preventDefault(); // Impede o recarregamento da página
 
-            // A cooperativa precisa conectar a carteira para definir o beneficiário
+            // O reciclador precisa conectar a carteira para definir o beneficiário
             if (typeof window.ethereum === 'undefined') {
                 alert("Por favor, instale a MetaMask para usar esta ferramenta.");
                 return;
