@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - Créditos de Reciclagem</title>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 2em auto; padding: 1em; border: 1px solid #ccc; border-radius: 8px; }
+        button { font-size: 1em; padding: 0.5em 1em; cursor: pointer; border-radius: 4px; border: 1px solid #007bff; background-color: #007bff; color: white; margin-top: 10px; }
+        button:disabled { background-color: #ccc; border-color: #ccc; cursor: not-allowed; }
+        input { font-size: 1em; padding: 0.5em; width: 95%; margin-bottom: 10px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        #status { margin-top: 1em; padding: 0.5em; background-color: #f0f0f0; border-radius: 4px; word-break: break-all; }
+        .section { margin-top: 1.5em; padding-top: 1em; border-top: 1px solid #eee; }
+        .error-message { color: #d9534f; }
+        .success-message { color: #5cb85c; }
+    </style>
+</head>
+<body>
+    <h1>Painel de Administração - Créditos de Reciclagem</h1>
+    <p>Use esta página para gerenciar o contrato e certificar novos créditos.</p>
+    
+    <button id="connectButton">Conectar Carteira como Administrador</button>
+    <hr>
+
+    <div id="certifierPanel" class="section" style="display:none;">
+        <h2>Certificar e Mintar Novo Crédito</h2>
+        <form id="mintForm">
+            <div>
+                <label for="ownerAddress">Endereço do Beneficiário (Cooperativa):</label>
+                <input type="text" id="ownerAddress" required placeholder="0x...">
+            </div>
+            <div>
+                <label for="materialType">Tipo de Material:</label>
+                <input type="text" id="materialType" required placeholder="Ex: Plástico PET">
+            </div>
+            <div>
+                <label for="weightKg">Peso (em Kg):</label>
+                <input type="number" id="weightKg" required placeholder="Ex: 1000">
+            </div>
+            <div>
+                <label for="location">Localização (Origem):</label>
+                <input type="text" id="location" required placeholder="Ex: Cooperativa Recicla-SP">
+            </div>
+            <div>
+                <label for="proofHash">Hash da Prova (Nota Fiscal):</label>
+                <input type="text" id="proofHash" required placeholder="0x...">
+            </div>
+            <button type="submit" id="mintButton">Mintar Crédito</button>
+        </form>
+    </div>
+
+    <div id="adminRolePanel" class="section" style="display:none;">
+        <h2>Gerenciar Função de Certificador</h2>
+        <p>Adicione ou remova endereços que podem certificar e mintar novos créditos.</p>
+        <div>
+            <label for="accountAddress">Endereço da Carteira:</label>
+            <input type="text" id="accountAddress" placeholder="0x...">
+        </div>
+        <button id="grantRoleButton">Conceder Função</button>
+        <button id="revokeRoleButton" style="background-color:#d9534f; border-color:#d9534f;">Revogar Função</button>
+    </div>
+
+    <div id="accessDenied" style="display:none;">
+        <h2 class="error-message">Acesso Negado</h2>
+        <p>A carteira conectada não possui as permissões de ADMIN ou CERTIFIER.</p>
+    </div>
+
+    <div id="status">Por favor, conecte sua carteira para continuar...</div>
+
+    <script>
+        const connectButton = document.getElementById('connectButton');
+        const statusDiv = document.getElementById('status');
+        
+        const certifierPanel = document.getElementById('certifierPanel');
+        const adminRolePanel = document.getElementById('adminRolePanel');
+        const accessDenied = document.getElementById('accessDenied');
+
+        const mintForm = document.getElementById('mintForm');
+        const mintButton = document.getElementById('mintButton');
+        const ownerAddressInput = document.getElementById('ownerAddress');
+        const materialTypeInput = document.getElementById('materialType');
+        const weightKgInput = document.getElementById('weightKg');
+        const locationInput = document.getElementById('location');
+        const proofHashInput = document.getElementById('proofHash');
+
+        const accountAddressInput = document.getElementById('accountAddress');
+        const grantRoleButton = document.getElementById('grantRoleButton');
+        const revokeRoleButton = document.getElementById('revokeRoleButton');
+        
+        const contractAddress = "0xe18e887380bD90BCEa276747DaD314DfB06c1f4f"; 
+        
+        const contractABI = [
+            "function certifyAndMint(address owner, string memory materialType, uint256 weightKg, string memory location, bytes32 proofHash)",
+            "function grantRole(bytes32 role, address account)",
+            "function revokeRole(bytes32 role, address account)",
+            "function hasRole(bytes32 role, address account) view returns (bool)",
+            "function CERTIFIER_ROLE() view returns (bytes32)"
+        ];
+
+        const DEFAULT_ADMIN_ROLE = "0x0000000000000000000000000000000000000000000000000000000000000000";
+        let provider, signer, contract;
+
+        connectButton.addEventListener('click', async () => {
+            if (typeof window.ethereum === 'undefined') {
+                statusDiv.textContent = "MetaMask não encontrada!";
+                return;
+            }
+            try {
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                signer = provider.getSigner();
+                contract = new ethers.Contract(contractAddress, contractABI, signer);
+                const userAddress = await signer.getAddress();
+
+                const certifierRole = await contract.CERTIFIER_ROLE();
+                const isAdmin = await contract.hasRole(DEFAULT_ADMIN_ROLE, userAddress);
+                const isCertifier = await contract.hasRole(certifierRole, userAddress);
+
+                connectButton.style.display = 'none';
+
+                if (isAdmin || isCertifier) {
+                    statusDiv.textContent = `Conectado como: ${userAddress.substring(0, 6)}... | Funções: ${isAdmin ? 'ADMIN' : ''} ${isCertifier ? 'CERTIFIER' : ''}`;
+                    if (isCertifier) certifierPanel.style.display = 'block';
+                    if (isAdmin) adminRolePanel.style.display = 'block';
+                } else {
+                    statusDiv.textContent = `Carteira conectada não possui permissão: ${userAddress.substring(0, 6)}...`;
+                    accessDenied.style.display = 'block';
+                }
+            } catch (error) {
+                statusDiv.textContent = `Erro ao conectar: ${error.message}`;
+            }
+        });
+
+        mintForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            try {
+                mintButton.disabled = true;
+                statusDiv.innerHTML = `<span class="success-message">Enviando transação... Confirme na sua carteira.</span>`;
+                
+                const tx = await contract.certifyAndMint(
+                    ownerAddressInput.value,
+                    materialTypeInput.value,
+                    weightKgInput.value,
+                    locationInput.value,
+                    proofHashInput.value
+                );
+                
+                statusDiv.textContent = `Transação enviada! Aguardando mineração... Hash: ${tx.hash}`;
+                await tx.wait();
+                
+                statusDiv.innerHTML = `<span class="success-message">Sucesso! Crédito mintado com sucesso!</span>`;
+                mintButton.disabled = false;
+                mintForm.reset();
+            } catch (error) {
+                console.error(error);
+                statusDiv.innerHTML = `<span class="error-message">Erro ao mintar: ${error.reason || error.message}</span>`;
+                mintButton.disabled = false;
+            }
+        });
+
+        async function handleRoleChange(action) {
+            const account = accountAddressInput.value;
+            if (!ethers.utils.isAddress(account)) {
+                statusDiv.innerHTML = `<span class="error-message">Endereço inválido.</span>`;
+                return;
+            }
+            
+            const buttonToDisable = action === 'grant' ? grantRoleButton : revokeRoleButton;
+            const actionText = action === 'grant' ? 'conceder' : 'revogar';
+
+            try {
+                buttonToDisable.disabled = true;
+                statusDiv.innerHTML = `<span class="success-message">Aguardando confirmação para ${actionText} a função...</span>`;
+                const certifierRole = await contract.CERTIFIER_ROLE();
+                
+                const tx = action === 'grant' 
+                    ? await contract.grantRole(certifierRole, account)
+                    : await contract.revokeRole(certifierRole, account);
+
+                statusDiv.textContent = `Transação enviada! Aguardando mineração... Hash: ${tx.hash}`;
+                await tx.wait();
+
+                statusDiv.innerHTML = `<span class="success-message">Sucesso! Função de CERTIFIER foi ${action === 'grant' ? 'concedida a' : 'revogada de'} ${account.substring(0, 6)}...</span>`;
+                buttonToDisable.disabled = false;
+            } catch (error) {
+                console.error(error);
+                statusDiv.innerHTML = `<span class="error-message">Erro ao ${actionText}: ${error.reason || error.message}</span>`;
+                buttonToDisable.disabled = false;
+            }
+        }
+
+        grantRoleButton.addEventListener('click', () => handleRoleChange('grant'));
+        revokeRoleButton.addEventListener('click', () => handleRoleChange('revoke'));
+    </script>
+</body>
+</html>
