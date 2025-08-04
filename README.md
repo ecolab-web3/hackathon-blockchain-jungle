@@ -17,7 +17,7 @@ Please make sure your wallet (e.g., MetaMask) is connected to the **Avalanche Fu
 
 *   **Recycler's Portal (Proof Generation):** This tool is for cooperatives and originators to generate the necessary data and proof hash for certification.
     *   **[➡️ Access the Recyclers Portal (english version)](https://ecolab-web3.github.io/recyclingcredits-rwa-solidity/recyclers-en.html)**
-    *   **[➡️ Acesse o Portal do Reciclador (versão em português)](https://ecolab-web3.github.io/recyclingcredits-rwa-solidity/recyclers-pt_br.html)**
+    *   **[➡️ Acesse o Portal dos Recicladores (versão em português)](https://ecolab-web3.github.io/recyclingcredits-rwa-solidity/recyclers-pt_br.html)**
 
 *   **Admin Panel (Credit Minting & Role Management):** This secure panel is for certifiers and admins to mint credits and manage roles.
     *   **[➡️ Access the Admin Panel (english version, for authorized users only)](https://ecolab-web3.github.io/recyclingcredits-rwa-solidity/admin-en.html)**
