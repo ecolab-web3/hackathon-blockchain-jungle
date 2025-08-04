@@ -10,7 +10,7 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v5.0.1/contr
  * @notice A contract to create, manage, and retire Recycling Credits tokenized as NFTs (RWA).
  * Each NFT represents a proven amount of recycled material.
  */
-contract RecyclingCredit is ERC721, AccessControl {
+contract RecyclingCredits is ERC721, AccessControl {
 
     // Defines the role that can certify and mint new credits.
     bytes32 public constant CERTIFIER_ROLE = keccak256("CERTIFIER_ROLE");
