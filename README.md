@@ -4,10 +4,18 @@
 ![Blockchain](https://img.shields.io/badge/Blockchain-Avalanche_Fuji-red)
 ![Verified Contract](https://img.shields.io/badge/Contract-Verified-green)
 ![License](https://img.shields.io/badge/License-MIT-blue)
+![Solidity Version](https://img.shields.io/badge/Solidity-0.8.20-yellow.svg)
+![Framework](https://img.shields.io/badge/Framework-Hardhat-purple.svg)
+
+___
+
+## About The Project
 
 This repository contains a smart contract prototype that tokenizes **Recycling Credits** as **Real World Assets (RWA)** on the blockchain, bringing transparency, auditability, and liquidity to the circular economy.
 
-This project has been successfully deployed and verified on the **Avalanche Fuji Testnet** and includes several DApp prototypes to demonstrate the workflow.
+This project has been successfully migrated to a professional **Hardhat environment**, rigorously tested with **100% code coverage**, deployed, and verified on the **Avalanche Fuji Testnet**.
+
+___
 
 ## Live Interaction & DApps
 
@@ -31,6 +39,25 @@ Please make sure your wallet (e.g., MetaMask) is connected to the **Avalanche Fu
 
 ---
 
+## Development Environment & Testing
+
+This project was migrated from Remix IDE to a professional Hardhat environment to ensure quality and reproducibility.
+
+*   **Framework:** Hardhat
+*   **Solidity Version:** `0.8.20`
+*   **Testing:** A comprehensive test suite was developed using `ethers.js` and `Chai`. The suite consists of **16 passing tests** covering all contract functions and logic paths.
+
+### Test Coverage
+
+The project achieved **100% test coverage** across all metrics, ensuring every line and logical branch of the contract was verified.
+
+| File                          | % Stmts | % Branch | % Funcs | % Lines |
+|-------------------------------|---------|----------|---------|---------|
+| **RECYCLINGCREDITS_RWA.sol**  | 100     | 100      | 100     | 100     |
+| **All files**                 | 100     | 100      | 100     | 100     |
+
+---
+
 ## Overview
 
 The core idea is to transform a certified recycling credit into an **ERC721 Non-Fungible Token (NFT)**. Each NFT represents a specific amount of post-consumer material that has been verifiably recycled, turning this right into a liquid, transferable, and transparent digital asset.
@@ -51,24 +78,22 @@ This prototype is a functional foundation. For a production-ready project, the n
 
 ### 1. Implement an Upgradable Contract using the Proxy Pattern
 
-To allow for future feature additions or bug fixes without forcing users to migrate to a new contract, the next logical step is to implement an upgradable contract using OpenZeppelin's Upgrades Contracts. This would enable future evolution, such as adding multiple trusted certifiers or integrating more complex financial mechanisms.
+To allow for future feature additions or bug fixes without forcing users to migrate to a new contract, the next logical step is to implement an upgradable contract using OpenZeppelin's Upgrades Contracts.
 
 ### 2. Build a Full DApp Ecosystem: Marketplace and Portals
 
 A production version requires dedicated interfaces for each user type, building upon the existing prototypes:
-*   **Marketplace Creation:** A frontend (e.g., using React, Vue) that serves as a marketplace where companies can browse available credits, filter by material/location, and purchase them directly. It would also include a dashboard for companies to manage their portfolio of credits and call the `retire` function.
-*   **Enhance Admin & Certifier Panel:** Transform the prototype panel into a comprehensive dashboard for managing roles and minting credits, possibly with a database to view pending certification requests from the Recycler's Portal.
-*   **Enhance Recycler's Portal:** Improve the prototype by adding features like a submission history and a direct communication channel (or database entry) to the certifiers, streamlining the workflow.
+*   **Marketplace Creation:** A frontend (e.g., using React, Vue) that serves as a marketplace where companies can browse available credits and purchase them directly.
+*   **Enhance Admin & Certifier Panel:** Transform the prototype panel into a comprehensive dashboard for managing roles and minting credits.
+*   **Enhance Recycler's Portal:** Improve the prototype by adding features like a submission history and a direct communication channel to the certifiers.
 
 ### 3. Develop a Secure Oracle for Proof Verification
 
-To automate and decentralize the proof verification process, an oracle can be developed.
-*   **What it is:** An oracle is a service that securely fetches off-chain data and submits it to the smart contract.
-*   **How it works:** In this context, it could read government-issued electronic invoices, validate them, and submit their cryptographic hash (`proofHash`) to the `certifyAndMint` function. This reduces manual work, minimizes human error, and further increases trust in the system's data integrity.
+To automate and decentralize the proof verification process, an oracle could be developed to read government-issued electronic invoices and submit their cryptographic hash (`proofHash`) to the `certifyAndMint` function.
 
 ### 4. Undergo a Professional Security Audit
 
-Before deploying to a mainnet and handling real value, a full audit by a reputable third-party security firm is essential. This process rigorously checks the smart contract code for vulnerabilities like reentrancy, integer overflows, access control issues, and other common attack vectors, ensuring the safety of the system.
+Before any mainnet deployment, a full audit by a reputable third-party security firm is essential to ensure the safety of the system.
 
 ---
 
