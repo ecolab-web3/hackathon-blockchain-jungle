@@ -10,6 +10,13 @@ cache/
 artifacts/
 out/
 
+# Test coverage reports
+coverage
+coverage.json
+
+# Typechain generated files
+typechain-types
+
 # System files
 .DS_Store
 Thumbs.db
