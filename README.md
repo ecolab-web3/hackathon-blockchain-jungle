@@ -17,11 +17,11 @@ This project has been successfully migrated to a professional **Hardhat environm
 
 ___
 
-## Live Interaction & DApps
+## Live Interaction & dApps
 
 Please make sure your wallet (e.g., MetaMask) is connected to the **Avalanche Fuji Testnet** to interact with the project components.
 
-### DApp Prototypes
+### dApp Prototypes
 
 *   **Recyclers Portal (Proof Generation):** This tool is for cooperatives and originators to generate the necessary data and proof hash for certification.
     *   **[➡️ Access the Recyclers Portal (english version)](https://ecolab-web3.github.io/recyclingcredits-rwa-solidity/recyclers-en.html)**
@@ -80,7 +80,7 @@ This prototype is a functional foundation. For a production-ready project, the n
 
 To allow for future feature additions or bug fixes without forcing users to migrate to a new contract, the next logical step is to implement an upgradable contract using OpenZeppelin's Upgrades Contracts.
 
-### 2. Build a Full DApp Ecosystem: Marketplace and Portals
+### 2. Build a Full dApp Ecosystem: Marketplace and Portals
 
 A production version requires dedicated interfaces for each user type, building upon the existing prototypes:
 *   **Marketplace Creation:** A frontend (e.g., using React, Vue) that serves as a marketplace where companies can browse available credits and purchase them directly.
