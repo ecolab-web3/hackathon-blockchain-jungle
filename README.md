@@ -1,5 +1,7 @@
 # RWA for Recycling Credits: A Solidity Smart Contract Prototype
 
+If you find our work valuable, please consider giving us a star on GitHub!
+
 ![Language](https://img.shields.io/badge/Language-Solidity-orange)
 ![Blockchain](https://img.shields.io/badge/Blockchain-Avalanche_Fuji-red)
 ![Verified Contract](https://img.shields.io/badge/Contract-Verified-green)
