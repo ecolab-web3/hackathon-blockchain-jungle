@@ -11,6 +11,15 @@ If you find our work valuable, please consider giving us a star on GitHub!
 
 ___
 
+## Official E-co.lab Links
+
+*   **Official Website:** [ecolab-web3.github.io](https://ecolab-web3.github.io/)
+*   **Whitepaper:** [e-co-lab.gitbook.io/whitepaper](https://e-co-lab.gitbook.io/whitepaper)
+*   **Discord Community:** [discord.gg/Q6BNyUDNtm](https://discord.gg/Q6BNyUDNtm)
+*   **Twitter:** [x.com/ecolab_web3](https://x.com/ecolab_web3)
+
+___
+
 ## About The Project
 
 This repository contains a smart contract prototype that tokenizes **Recycling Credits** as **Real World Assets (RWA)** on the blockchain, bringing transparency, auditability, and liquidity to the circular economy.
