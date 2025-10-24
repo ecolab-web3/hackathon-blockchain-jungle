@@ -1,3 +1,6 @@
+# Temporary files
+_base
+
 # Log and environment files
 .env
 *.log
