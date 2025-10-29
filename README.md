@@ -1,13 +1,15 @@
-# RWA for Recycling Credits: A Solidity Smart Contract Prototype
+# RWA for Recycling Credits: Avalanche Jungle Hackathon Submission
 
 If you find our work valuable, please consider giving us a star on GitHub!
 
+![Hackathon](https://img.shields.io/badge/Hackathon-Avalanche_Jungle-brightgreen)
+![Test_Coverage](https://img.shields.io/badge/Coverage-100%25-green)
 ![Language](https://img.shields.io/badge/Language-Solidity-orange)
 ![Blockchain](https://img.shields.io/badge/Blockchain-Avalanche_Fuji-red)
-![Verified Contract](https://img.shields.io/badge/Contract-Verified-green)
-![License](https://img.shields.io/badge/License-MIT-blue)
-![Solidity Version](https://img.shields.io/badge/Solidity-0.8.20-yellow.svg)
 ![Framework](https://img.shields.io/badge/Framework-Hardhat-purple.svg)
+![Solidity Version](https://img.shields.io/badge/Solidity-0.8.20-yellow.svg)
+![Verified Contracts](https://img.shields.io/badge/Contracts-Verified-green)
+![License](https://img.shields.io/badge/License-MIT-blue)
 
 ___
 
@@ -22,89 +24,84 @@ ___
 
 ## About The Project
 
-This repository contains a smart contract prototype that tokenizes **Recycling Credits** as **Real World Assets (RWA)** on the blockchain, bringing transparency, auditability, and liquidity to the circular economy.
+This project, developed for the **Avalanche Jungle Hackathon**, introduces a robust, dual-gateway architecture to tokenize **Recycling Credits** as **Real-World Assets (RWAs)** on the Avalanche blockchain. The system is designed to bring transparency, liquidity, and verifiable trust to the circular economy by serving both the formal (document-based) and informal recycling sectors.
 
-This project has been successfully migrated to a professional **Hardhat environment**, rigorously tested with **100% code coverage**, deployed, and verified on the **Avalanche Fuji Testnet**.
+The entire system developed during the hackathon was built using Hardhat, achieved **100% test coverage**, and was successfully deployed and verified on the **Avalanche Fuji Testnet**.
 
 ___
 
-## Live Interaction & dApps
+## Live Demo & Deployed Assets
 
-Please make sure your wallet (e.g., MetaMask) is connected to the **Avalanche Fuji Testnet** to interact with the project components.
+This section provides links to interact with and verify the project's components.
 
-### dApp Prototypes
+### Live Technical Demo (Gitpod)
 
-*   **Recyclers Portal (Proof Generation):** This tool is for cooperatives and originators to generate the necessary data and proof hash for certification.
-    *   **[➡️ Access the Recyclers Portal (english version)](https://ecolab-web3.github.io/recyclingcredits-rwa-solidity/recyclers-en.html)**
-    *   **[➡️ Acesse o Portal dos Recicladores (versão em português)](https://ecolab-web3.github.io/recyclingcredits-rwa-solidity/recyclers-pt_br.html)**
+This is the most effective way to validate our technical execution. The link below launches a pre-configured cloud development environment that clones the repository and installs all dependencies.
 
-*   **Admin Panel (Credit Minting & Role Management):** This secure panel is for certifiers and admins to mint credits and manage roles.
-    *   **[➡️ Access the Admin Panel (english version, for authorized users only)](https://ecolab-web3.github.io/recyclingcredits-rwa-solidity/admin-en.html)**
-    *   **[➡️ Acesse o Painel do Administrador (versão em português, somente para usuários autorizados)](https://ecolab-web3.github.io/recyclingcredits-rwa-solidity/admin-pt_br.html)**
+**[➡️ Launch Live Technical Demo on Gitpod](https://gitpod.io/#https://github.com/ecolab-web3/hackathon-blockchain-jungle)**
 
-### Contract Details
+**Instructions for Judges:**
+Once the environment loads, you can open a terminal and run the following commands to verify our work:
+1.  `npx hardhat coverage` - This will run all **42 unit and integration tests** and generate a report showing **100% test coverage** for all contracts.
+2.  `npx hardhat run scripts/runFullFlowIntegration.ts` - This will execute our final integration test on a fork of the Fuji testnet, proving the end-to-end functionality of the system architecture.
 
-*   **Network:** `Avalanche Fuji Testnet`
-*   **Contract Address:** [`0xe18e887380bD90BCEa276747DaD314DfB06c1f4f`](https://testnet.snowtrace.io/address/0xe18e887380bD90BCEa276747DaD314DfB06c1f4f)
-*   **Verification:** The source code is verified. You can read and interact with it directly on **[Snowtrace's "Write Contract" Tab](https://testnet.snowtrace.io/address/0xe18e887380bD90BCEa276747DaD314DfB06c1f4f#writeContract)**.
+### Deployed Contracts on Fuji Testnet
 
----
+*   **RecyclingCredits (RWA NFT):** [`0xe18e...f4f`](https://testnet.snowtrace.io/address/0xe18e887380bD90BCEa276747DaD314DfB06c1f4f) (Pre-existing contract)
+*   **VerifierGateway:** [`0x6750...90DD`](https://testnet.snowtrace.io/address/0x6750f3daD85Ae66Bb8d0AF5ea0D11CDc8E4a90DD) (Built during hackathon)
+*   **FiscalGateway:** [`0xeaF0...1Fa7`](https://testnet.snowtrace.io/address/0xeaF0F7CFcE04C953258247669Cb455b750321Fa7) (Built during hackathon)
 
-## Development Environment & Testing
+### UI Prototypes (Pre-Hackathon)
 
-This project was migrated from Remix IDE to a professional Hardhat environment to ensure quality and reproducibility.
-
-*   **Framework:** Hardhat
-*   **Solidity Version:** `0.8.20`
-*   **Testing:** A comprehensive test suite was developed using `ethers.js` and `Chai`. The suite consists of **16 passing tests** covering all contract functions and logic paths.
-
-### Test Coverage
-
-The project achieved **100% test coverage** across all metrics, ensuring every line and logical branch of the contract was verified.
-
-| File                          | % Stmts | % Branch | % Funcs | % Lines |
-|-------------------------------|---------|----------|---------|---------|
-| **RECYCLINGCREDITS_RWA.sol**  | 100     | 100      | 100     | 100     |
-| **All files**                 | 100     | 100      | 100     | 100     |
+These dApps were part of the pre-existing project. **Note:** They are not integrated with the new gateway architecture built during the hackathon.
+*   [Recyclers Portal (Proof of Concept)](https://ecolab-web3.github.io/recyclingcredits-rwa-solidity/recyclers-en.html)
+*   [Admin Panel (Proof of Concept)](https://ecolab-web3.github.io/recyclingcredits-rwa-solidity/admin-en.html)
 
 ---
 
-## Overview
+## Hackathon Contribution & Project Continuity
 
-The core idea is to transform a certified recycling credit into an **ERC721 Non-Fungible Token (NFT)**. Each NFT represents a specific amount of post-consumer material that has been verifiably recycled, turning this right into a liquid, transferable, and transparent digital asset.
+This project is based on a pre-existing RWA contract (`RecyclingCredits.sol`). The work performed during the **Avalanche Jungle Hackathon** focused on building the entire verification, automation, and integration layer required to make the system functional and scalable.
 
-### Key Concepts Implemented
+### What Was Built During the Hackathon
 
-*   **Role-Based Access Control**: The contract uses `AccessControl` with a `CERTIFIER_ROLE` that is exclusively authorized to mint new credit NFTs.
-*   **Credit Minting**: A user with the `CERTIFIER_ROLE` can mint new NFTs using data generated by the Recycler's Portal.
-*   **Credit Retirement**: The NFT owner can "retire" their credit via the `retire` function, creating an immutable public record of its use.
-*   **Transferability**: As a standard ERC721 token, the credit can be freely traded on any NFT marketplace until it is retired.
-*   **Security and Transparency**: The contract uses standard OpenZeppelin libraries and its code is publicly verified.
+1.  **VerifierGateway Contract:** A secure gateway for the informal recycling sector, enabling the minting of credits based on cryptographic signatures from trusted human verifiers.
+2.  **FiscalGateway Contract:** An advanced gateway designed to automate the verification of fiscal documents (Brazilian NFe) using **Chainlink Functions**. Its most innovative feature is an **on-chain fallback queue**, which automatically flags inconsistent documents for manual review, ensuring system resilience without a centralized backend.
+3.  **End-to-End Test Suite:** A comprehensive suite of **42 tests** was developed, achieving **100% test coverage** across all new contracts and their complex interactions.
+4.  **Chainlink Functions Script:** The complete off-chain Javascript source code (`functions-source.js`) was developed to query a real-world API, validate data, and handle inconsistencies.
+5.  **Fork Integration Scripts:** We created and successfully executed scripts on a fork of the Fuji testnet, proving that our new gateways could correctly interact with the live `RecyclingCredits` contract and execute the full integrated workflow, including the manual fallback mechanism.
+
+### Challenge and Learning
+
+Our primary technical challenge arose during the final on-chain configuration of the `FiscalGateway`. We discovered that our deployed contract was missing a necessary parameter in its request function to pass a reference to the off-chain secrets (API key). Due to the immutable nature of the contract and the hackathon's time limit, we could not redeploy this component.
+
+This experience was a crucial lesson in the complexities of integrating on-chain and off-chain systems. Importantly, our architecture's design proved its value: the **on-chain fallback queue is fully functional**, allowing any NFe to be processed securely through the `VerifierGateway`'s manual verification flow, ensuring no data is lost and the system remains operational.
+
+---
+
+## Technical Architecture
+
+The system's innovation lies in its **dual-gateway architecture**, which separates concerns and creates a robust, auditable pipeline for RWA tokenization.
+
+*   **VerifierGateway (For the Informal Sector):**
+    *   **Purpose:** To provide a trust-minimized entry point for recycled materials that lack formal documentation.
+    *   **Security Model:** Relies on `ECDSA` signatures. A pre-approved set of real-world "Verifiers" (`VERIFIER_ROLE`) can attest to a collection's legitimacy by signing its data. This signature is the sole authorization required to mint a credit, creating a strong, auditable link to a trusted individual.
+
+*   **FiscalGateway (For the Formal Sector):**
+    *   **Purpose:** To automate the verification of official documents (like NFes) to scale the system.
+    *   **Integration:** Designed to use Chainlink Functions to call an external API, parse the document data, and validate it against on-chain rules.
+    *   **On-Chain Fallback Queue:** If the Chainlink Functions script detects inconsistent data (e.g., wrong unit of measurement), it signals the `FiscalGateway`. The gateway then creates a task in a public, on-chain queue. This task can then be resolved by an administrator via the `VerifierGateway`, unifying the human verification process.
 
 ---
 
 ## Next Steps
 
-This prototype is a functional foundation. For a production-ready project, the next steps focus on usability, data integrity, and security.
+This project has a clear and viable roadmap for production.
 
-### 1. Implement an Upgradable Contract using the Proxy Pattern
-
-To allow for future feature additions or bug fixes without forcing users to migrate to a new contract, the next logical step is to implement an upgradable contract using OpenZeppelin's Upgrades Contracts.
-
-### 2. Build a Full dApp Ecosystem: Marketplace and Portals
-
-A production version requires dedicated interfaces for each user type, building upon the existing prototypes:
-*   **Marketplace Creation:** A frontend (e.g., using React, Vue) that serves as a marketplace where companies can browse available credits and purchase them directly.
-*   **Enhance Admin & Certifier Panel:** Transform the prototype panel into a comprehensive dashboard for managing roles and minting credits.
-*   **Enhance Recycler's Portal:** Improve the prototype by adding features like a submission history and a direct communication channel to the certifiers.
-
-### 3. Develop a Secure Oracle for Proof Verification
-
-To automate and decentralize the proof verification process, an oracle could be developed to read government-issued electronic invoices and submit their cryptographic hash (`proofHash`) to the `certifyAndMint` function.
-
-### 4. Undergo a Professional Security Audit
-
-Before any mainnet deployment, a full audit by a reputable third-party security firm is essential to ensure the safety of the system.
+1.  **Redeploy FiscalGateway:** The immediate next step is to redeploy the `FiscalGateway` with the corrected function signature to fully enable the Chainlink Functions automation with secrets.
+2.  **Develop a Unified dApp:** Build a production-grade dApp that provides interfaces for all user roles: recyclers, verifiers (for the manual queue), and administrators.
+3.  **Support for EIP-1271:** Refactor the `VerifierGateway` to support the EIP-1271 standard, allowing multi-signature wallets (like Gnosis Safe) to act as verifiers, further decentralizing the governance and approval process.
+4.  **Expand Country Support:** Add new Javascript sources and configurations to the `FiscalGateway` to support electronic fiscal documents from other Latin American countries (e.g., Mexico's CFDI, Argentina's Factura Electrónica).
 
 ---
 

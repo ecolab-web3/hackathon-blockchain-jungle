@@ -41,12 +41,11 @@ describe("VerifierGateway <-> RecyclingCredits Integration", function () {
     );
     return await signer.signMessage(ethers.getBytes(messageHash));
   }
-
-  // --- NOVO TESTE PARA O CONSTRUTOR ---
+  
   describe("Constructor", function () {
     it("Should revert if deployed with a zero address for the credits contract", async function () {
         const VerifierGatewayFactory = await ethers.getContractFactory("VerifierGateway");
-        // Teste da ramificação: require(_recyclingCreditsAddress != address(0))
+        
         await expect(
             VerifierGatewayFactory.deploy(ethers.ZeroAddress)
         ).to.be.revertedWith("Gateway: Invalid RWA contract address");
@@ -96,15 +95,12 @@ describe("VerifierGateway <-> RecyclingCredits Integration", function () {
         .withArgs(gatewayAddress, CERTIFIER_ROLE);
     });
 
-    // --- NOVOS TESTES PARA AS RAMIFICAÇÕES DE FALHA ---
-
     it("Should revert if the signer does not have the VERIFIER_ROLE", async function () {
         const nonce = ethers.randomBytes(32);
         const recipientAddress = await recipient.getAddress();
-        // Assinatura criada por um usuário não autorizado
+        
         const signature = await createSignature(unauthorizedUser, recipientAddress, materialType, weightKg, location, proofHash, nonce);
-
-        // Teste da ramificação: require(hasRole(VERIFIER_ROLE, signer), ...)
+        
         await expect(
             gatewayContract.mintWithSignature(recipientAddress, materialType, weightKg, location, proofHash, nonce, signature)
         ).to.be.revertedWith("Gateway: Signer is not an authorized verifier");
@@ -114,12 +110,9 @@ describe("VerifierGateway <-> RecyclingCredits Integration", function () {
         const nonce = ethers.randomBytes(32);
         const recipientAddress = await recipient.getAddress();
         const signature = await createSignature(verifier, recipientAddress, materialType, weightKg, location, proofHash, nonce);
-
-        // Primeira chamada (bem-sucedida)
+        
         await gatewayContract.mintWithSignature(recipientAddress, materialType, weightKg, location, proofHash, nonce, signature);
-
-        // Segunda chamada com o mesmo nonce e assinatura (deve falhar)
-        // Teste da ramificação: require(!usedNonces[nonce], ...)
+                
         await expect(
             gatewayContract.mintWithSignature(recipientAddress, materialType, weightKg, location, proofHash, nonce, signature)
         ).to.be.revertedWith("Gateway: Signature nonce has already been used");
@@ -128,10 +121,9 @@ describe("VerifierGateway <-> RecyclingCredits Integration", function () {
     it("Should revert if the signature is cryptographically invalid", async function () {
         const nonce = ethers.randomBytes(32);
         const recipientAddress = await recipient.getAddress();
-        // Uma assinatura válida tem 65 bytes (r, s, v). Qualquer outro comprimento é inválido.
+        
         const invalidSignature = ethers.randomBytes(64);
-
-        // O erro para comprimento inválido de assinatura termina com 'S'.
+        
         await expect(
             gatewayContract.mintWithSignature(recipientAddress, materialType, weightKg, location, proofHash, nonce, invalidSignature)
         ).to.be.revertedWithCustomError(gatewayContract, "ECDSAInvalidSignatureLength");

@@ -2,6 +2,7 @@
 _base
 
 # Log and environment files
+offchain-secrets.json
 .env
 *.log
 
