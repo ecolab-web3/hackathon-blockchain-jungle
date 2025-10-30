@@ -30,7 +30,7 @@ We built a **dual-gateway architecture** to tokenize verified recycling credits 
 
 <style scoped>
 img[alt="Diagram"] {
-  width: 200px;
+  width: 250px;
 }
 </style>
 

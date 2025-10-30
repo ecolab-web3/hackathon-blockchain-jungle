@@ -1,0 +1,20 @@
+# This file tells Gitpod how to prepare the development environment.
+
+# This is the main configuration block for tasks.
+tasks:
+  # The 'init' task runs only once when the workspace is first created.
+  # It installs all project dependencies from package.json.
+  - name: Install Dependencies
+    init: npm install
+
+  # The 'command' task runs every time the workspace is started or restarted.
+  # It compiles the smart contracts to ensure artifacts are up-to-date.
+  - name: Compile Contracts
+    command: npx hardhat compile
+
+# This block configures the ports that Gitpod should expose.
+ports:
+  # Exposes port 8545, which is the default port used by 'npx hardhat node'.
+  # This is useful if a judge wants to run a local node and interact with it.
+  - port: 8545
+    onOpen: ignore
