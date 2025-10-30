@@ -34,14 +34,14 @@ ___
 
 This section provides links to interact with and verify the project's components.
 
-### Live Technical Demo (Gitpod)
+### Live Technical Demo (GitHub Codespaces)
 
-This is the most effective way to validate our technical execution. The link below launches a pre-configured cloud development environment that clones the repository and installs all dependencies.
+This is the most effective way to validate our technical execution. The link below launches a pre-configured cloud development environment directly from GitHub, cloning the repository and installing all dependencies automatically.
 
-**[➡️ Launch Live Technical Demo on Gitpod](https://gitpod.io/#https://github.com/ecolab-web3/hackathon-blockchain-jungle)**
+**[➡️ Launch Live Technical Demo on GitHub Codespaces](https://codespaces.new/ecolab-web3/hackathon-blockchain-jungle)**
 
 **Instructions for Judges:**
-Once the environment loads, you can open a terminal and run the following commands to verify our work:
+Once the environment loads (it might take a minute), a terminal will open and automatically run `npm install`. After it finishes, you can run the following commands to verify our work:
 1.  `npx hardhat coverage` - This will run all **42 unit and integration tests** and generate a report showing **100% test coverage** for all contracts.
 2.  `npx hardhat run scripts/runFullFlowIntegration.ts` - This will execute our final integration test on a fork of the Fuji testnet, proving the end-to-end functionality of the system architecture.
 
