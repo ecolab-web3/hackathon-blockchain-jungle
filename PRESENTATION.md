@@ -1,7 +1,13 @@
-<!-- Global Directives -->
 <!--
 theme: uncover
-headingDivider: 2
+style: |
+  section {
+    font-size: 28px;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 48px;
+  }
 -->
 
 # RWA for Recycling Credits
@@ -22,31 +28,13 @@ headingDivider: 2
 
 We built a **dual-gateway architecture** to tokenize verified recycling credits into ERC721 NFTs, creating a liquid and transparent asset.
 
-graph TD;
-    subgraph "Off-chain World"
-        A[User with NFe] -->|1. requestMinting| B(FiscalGateway);
-        C[Chainlink Functions] -- API Call --> D[NFe API];
-        D -- NFe Data --> C;
-    end
+<style scoped>
+img[alt="Diagram"] {
+  width: 200px;
+}
+</style>
 
-    subgraph "On-chain World (Avalanche Fuji)"
-        B -- 2. _sendRequest --> C;
-        C -- 3a. fulfillRequest (Success) --> E{RecyclingCredits};
-        C -- 3b. fulfillRequest (Inconsistent) --> F[On-chain Manual Queue];
-        
-        G[Human Verifier] -- Signs Corrected Data --> H{dApp};
-        H -- 4. processManualVerification... --> B;
-        
-        B -- 5. Delegates to --> I(VerifierGateway);
-        I -- 6. mintWithSignature --> E;
-
-        J[Informal Sector Verifier] -- Signs Data --> H;
-        H -- Alt. Flow --> I;
-    end
-
-    style E fill:#c2ffc2,stroke:#333,stroke-width:2px
-    style B fill:#c2d4ff,stroke:#333,stroke-width:2px
-    style I fill:#c2d4ff,stroke:#333,stroke-width:2px
+![Diagram](https://raw.githubusercontent.com/ecolab-web3/hackathon-blockchain-jungle/refs/heads/main/images/diagram.png)
 
 ---
 
@@ -102,8 +90,13 @@ We delivered a fully-tested, robust, and deployed system foundation.
 *   Achieved **100% line, branch, and function coverage** for all new smart contracts (`FiscalGateway`, `VerifierGateway`).
 *   This proves the logic is sound and secure in a simulated environment.
 
-![Coverage Report](URL_TO_YOUR_COVERAGE_REPORT_IMAGE)
-*(Take a screenshot of your 100% coverage report from the terminal and upload it to the repo)*
+<style scoped>
+img[alt="Coverage Report"] {
+  width: 300px;
+}
+</style>
+
+![Coverage Report](https://raw.githubusercontent.com/ecolab-web3/hackathon-blockchain-jungle/refs/heads/main/images/coverageReport.png)
 
 ---
 
@@ -113,8 +106,13 @@ We delivered a fully-tested, robust, and deployed system foundation.
 *   We wrote and successfully executed integration scripts on a **live fork of the Fuji Testnet**.
 *   **This proved, inequivocally, that our new gateways can correctly interact with the pre-existing, live RWA contract.**
 
-![Fork Test Success](URL_TO_YOUR_FORK_TEST_SUCCESS_IMAGE)
-*(Take a screenshot of the successful `runFullFlowIntegration.ts` output and upload it to the repo)*
+<style scoped>
+img[alt="Fork Test Success"] {
+  width: 500px;
+}
+</style>
+
+![Fork Test Success](https://raw.githubusercontent.com/ecolab-web3/hackathon-blockchain-jungle/refs/heads/main/images/fullFlowIntegration.png)
 
 ---
 
