@@ -43,7 +43,7 @@ This is the most effective way to validate our technical execution. The link bel
 **Instructions for Judges:**
 Once the environment loads (it might take a minute), a terminal will open and automatically run `npm install`. After it finishes, you can run the following commands to verify our work:
 1.  `npx hardhat coverage` - This will run all **42 unit and integration tests** and generate a report showing **100% test coverage** for all contracts.
-2.  `npx hardhat run scripts/runFullFlowIntegration.ts` - This will execute our final integration test on a fork of the Fuji testnet, proving the end-to-end functionality of the system architecture.
+2.  `npx hardhat run scripts/proofAllGatewayIntegration.ts` - This will execute our final integration test on a fork of the Fuji testnet, proving the end-to-end functionality of the system architecture.
 
 ### Deployed Contracts on Fuji Testnet
 
